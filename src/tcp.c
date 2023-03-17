@@ -4,7 +4,7 @@
 #include "ip.h"
 
 static void panic(const char* msg, int line) {
-    printf("panic %s! at line %d\n", msg, __LINE__);
+    printf("panic %s! at line %d\n", msg, line);
     assert(0);
 }
 
