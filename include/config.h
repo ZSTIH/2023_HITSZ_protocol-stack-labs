@@ -22,7 +22,7 @@
 #else
 #define NET_IF_IP    \
     {                   \
-        XX, XX, XX, XX \
+        192, 168, 56, 100 \
     } //自定义网卡ip地址
 #define NET_IF_MAC                      \
     {                                      \
