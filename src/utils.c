@@ -78,4 +78,29 @@ uint8_t ip_prefix_match(uint8_t *ipa, uint8_t *ipb)
 uint16_t checksum16(uint16_t *data, size_t len)
 {
     // TO-DO
+    uint32_t sum = 0;
+    // Step1: 把 data 看出是每两个字节组成一个数，不断累加；若最后剩下一个字节的值，也要相加这个值
+    // 由于 16 位加法可能会溢出，因此结果 sum 要用 32 位来保存
+    for (int i = 0; i < len; i += 2)
+    {
+        if (i == len - 1)
+        {
+            // i 为 (len - 1) 说明此时还剩余 8 位没有加，故需要再加上
+            sum += *((uint8_t *)data + i);
+        }
+        else
+        {
+            sum += data[i / 2];
+        }
+    }
+
+    // Step2: 判断相加后的结果的高 16 位是否为 0
+    // 如果不为 0 ，则将高 16 位和低 16 位相加，依次循环，直至高 16 位为 0 为止
+    while ((sum >> 16) != 0)
+    {
+        sum = (sum & 0xFFFF) + (sum >> 16);
+    }
+
+    // Step3: 将上述和的低 16 位进行取反，得到校验和
+    return (~sum) & 0xFFFF;
 }
