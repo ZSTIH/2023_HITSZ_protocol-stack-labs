@@ -196,9 +196,9 @@ static void tcp_send(buf_t* buf, tcp_connect_t* connect, tcp_flags_t flags) {
     hdr->reserved = 0;
     hdr->flags = flags;
     hdr->window_size16 = swap16(connect->remote_win);
-    hdr->chunksum16 = 0;
+    hdr->checksum16 = 0;
     hdr->urgent_pointer16 = 0;
-    hdr->chunksum16 = tcp_checksum(buf, connect->ip, net_if_ip);
+    hdr->checksum16 = tcp_checksum(buf, connect->ip, net_if_ip);
     ip_out(buf, connect->ip, NET_PROTOCOL_TCP);
     if (flags.syn || flags.fin) {
         connect->next_seq += 1;

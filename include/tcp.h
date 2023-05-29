@@ -31,7 +31,7 @@ typedef struct tcp_hdr {
     uint8_t data_offset : 4;// 这个头有多少个32位字长, 后面的是数据
     tcp_flags_t flags;
     uint16_t window_size16; // 接收窗口大小, 流量控制用
-    uint16_t chunksum16;    // 校验和
+    uint16_t checksum16;    // 校验和
     uint16_t urgent_pointer16;
 } tcp_hdr_t;
 
